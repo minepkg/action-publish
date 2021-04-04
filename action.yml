@@ -1,8 +1,9 @@
 name: 'Publish minepkg package'
 description: 'Publishes a package on minepkg.io'
 author: 'minepkg'
-icon: 'box'
-color: 'orange'
+branding:
+  icon: 'package'
+  color: 'orange'
 inputs:
   api-key:
     description: 'API key to authenticate. Pass a secret! See: https://preview.minepkg.io/docs/ci'
