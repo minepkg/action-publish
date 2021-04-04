@@ -1,22 +1,16 @@
-## minepkg install GitHub action
+## minepkg publish GitHub action
 
-This action installs the minepkg CLI tool.
+This action publishes a package on minepkg.
 
 ## Usage
 
-### Latest Version
-
-```yaml
-- name: Install minepkg CLI
-  uses: minepkg/action-publish@main
-
-```
-
-### Custom Version
+Set the `MINEPKG_API_KEY` secret before using this action.
+You can get the api key from: https://preview.minepkg.io/docs/ci
+The documentation also includes more complete examples on how to use this action.
 
 ```yaml
 - name: Install minepkg CLI
   uses: minepkg/action-publish@main
   with:
-    version: 0.0.58 # supply wanted minepkg version here
+    api-key: ${{secrets.MINEPKG_API_KEY}}
 ```
