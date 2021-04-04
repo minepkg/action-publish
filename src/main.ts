@@ -11,12 +11,13 @@ async function run(): Promise<void> {
   const cliVersion: string = core.getInput('cli-version') || 'latest';
   const releaseVersion: string = core.getInput('release');
   const noBuild: string = core.getInput('no-build');
+  const dry: string = core.getInput('dry');
   const workingDir: string = core.getInput('working-directory');
 
   // TODO: maybe check if it's already here
   await install({ version: cliVersion });
 
-  if (isTrue(workingDir)) {
+  if (workingDir) {
     process.chdir(workingDir);
   }
 
@@ -36,8 +37,9 @@ async function run(): Promise<void> {
     }
   }
 
-  const args = ['publish'];
+  const args = ['publish', '--non-interactive'];
   if (isTrue(noBuild)) args.push('--no-build');
+  if (isTrue(dry)) args.push('--dry');
   if (releaseVersion) args.push('--release=' + releaseVersion);
 
   core.info('Publishing package');

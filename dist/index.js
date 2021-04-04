@@ -51,10 +51,11 @@ function run() {
         const cliVersion = core.getInput('cli-version') || 'latest';
         const releaseVersion = core.getInput('release');
         const noBuild = core.getInput('no-build');
+        const dry = core.getInput('dry');
         const workingDir = core.getInput('working-directory');
         // TODO: maybe check if it's already here
         yield install_1.default({ version: cliVersion });
-        if (isTrue(workingDir)) {
+        if (workingDir) {
             process.chdir(workingDir);
         }
         if (process.platform !== 'win32' && fs.existsSync('./gradlew')) {
@@ -71,9 +72,11 @@ function run() {
                 fs.chmodSync('./gradlew', 755);
             }
         }
-        const args = ['publish'];
+        const args = ['publish', '--non-interactive'];
         if (isTrue(noBuild))
             args.push('--no-build');
+        if (isTrue(dry))
+            args.push('--dry');
         if (releaseVersion)
             args.push('--release=' + releaseVersion);
         core.info('Publishing package');
