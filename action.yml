@@ -1,0 +1,18 @@
+name: 'Publish minepkg package'
+description: 'Publishes a package on minepkg.io'
+author: 'minepkg'
+inputs:
+  no-build:
+    description: 'Skips the build step that the cli does by default'
+    default: false
+  release:
+    description: 
+      'Release version number to publish. You usually do not set this and use "minepkg bump" instead before publishing.'
+  cli-version:
+    description: 'The CLI version to install'
+    default: 'latest'
+  dry:
+    description: 'Set to true to do a dry run without actually publishing'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
