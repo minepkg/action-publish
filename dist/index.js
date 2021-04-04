@@ -44,14 +44,19 @@ const core = __importStar(__nccwpck_require__(186));
 const exec = __importStar(__nccwpck_require__(514));
 const install_1 = __importDefault(__nccwpck_require__(562));
 const TRUE_STRINGS = ['true', 'yes', '1', 'on'];
+const isTrue = (s) => s && TRUE_STRINGS.includes(s);
 // note: debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const cliVersion = core.getInput('cli-version') || 'latest';
         const releaseVersion = core.getInput('release');
         const noBuild = core.getInput('no-build');
+        const workingDir = core.getInput('working-directory');
         // TODO: maybe check if it's already here
         yield install_1.default({ version: cliVersion });
+        if (isTrue(workingDir)) {
+            process.chdir(workingDir);
+        }
         if (process.platform !== 'win32' && fs.existsSync('./gradlew')) {
             core.debug('Checking gradlew');
             try {
@@ -67,7 +72,7 @@ function run() {
             }
         }
         const args = ['publish'];
-        if (noBuild && TRUE_STRINGS.includes(noBuild))
+        if (isTrue(noBuild))
             args.push('--no-build');
         if (releaseVersion)
             args.push('--release=' + releaseVersion);

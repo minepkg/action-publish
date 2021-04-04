@@ -5,9 +5,12 @@ inputs:
   no-build:
     description: 'Skips the build step that the cli does by default'
     default: false
+  working-directory:
+    description: 'Working directory to use. Default is root of the project'
   release:
     description: 
       'Release version number to publish. You usually do not set this and use "minepkg bump" instead before publishing.'
+
   cli-version:
     description: 'The CLI version to install'
     default: 'latest'

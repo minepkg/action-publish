@@ -4,15 +4,21 @@ import * as exec from '@actions/exec';
 import install from 'action-install-minepkg/src/install';
 
 const TRUE_STRINGS = ['true', 'yes', '1', 'on'];
+const isTrue = (s: string) => s && TRUE_STRINGS.includes(s);
 
 // note: debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
 async function run(): Promise<void> {
   const cliVersion: string = core.getInput('cli-version') || 'latest';
   const releaseVersion: string = core.getInput('release');
   const noBuild: string = core.getInput('no-build');
+  const workingDir: string = core.getInput('working-directory');
 
   // TODO: maybe check if it's already here
   await install({ version: cliVersion });
+
+  if (isTrue(workingDir)) {
+    process.chdir(workingDir);
+  }
 
   if (process.platform !== 'win32' && fs.existsSync('./gradlew')) {
     core.debug('Checking gradlew');
@@ -31,7 +37,7 @@ async function run(): Promise<void> {
   }
 
   const args = ['publish'];
-  if (noBuild && TRUE_STRINGS.includes(noBuild)) args.push('--no-build');
+  if (isTrue(noBuild)) args.push('--no-build');
   if (releaseVersion) args.push('--release=' + releaseVersion);
 
   core.info('Publishing package');
