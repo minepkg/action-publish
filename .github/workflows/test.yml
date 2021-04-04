@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          api-key: fake-123-key
+          api-key: ${{secrets.MINEPKG_API_KEY}}
           working-directory: test/package
           release: v0.12.2
           dry: true
