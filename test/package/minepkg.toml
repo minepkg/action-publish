@@ -1,0 +1,18 @@
+manifestVersion = 0
+
+[package]
+  type = "mod"
+  name = "test-action-mod"
+  description = "Test only. Nothing to see here"
+  version = "0.1.0"
+  platform = "fabric"
+  license = "MIT"
+
+[requirements]
+  minecraft = "~1.16.0"
+  fabric = "*"
+
+[dependencies]
+
+[dev]
+  buildCommand = "./gradlew build"
