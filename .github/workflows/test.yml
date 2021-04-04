@@ -23,7 +23,7 @@ jobs:
         with:
           api-key: ${{secrets.MINEPKG_API_KEY}}
           working-directory: test/package
-          release: v0.12.2
+          release: 0.12.2
           dry: true
           no-build: true
       - run: minepkg -v
