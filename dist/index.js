@@ -49,12 +49,15 @@ const isTrue = (s) => s && TRUE_STRINGS.includes(s);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const cliVersion = core.getInput('cli-version') || 'latest';
+        const apiKey = core.getInput('api-key', { required: true });
         const releaseVersion = core.getInput('release');
         const noBuild = core.getInput('no-build');
         const dry = core.getInput('dry');
         const workingDir = core.getInput('working-directory');
         // TODO: maybe check if it's already here
         yield install_1.default({ version: cliVersion });
+        core.setSecret('MINEPKG_API_KEY');
+        core.exportVariable('MINEPKG_API_KEY', apiKey);
         if (workingDir) {
             process.chdir(workingDir);
         }
@@ -67,7 +70,7 @@ function run() {
                 core.warning([
                     'Your gradlew is not executable. Non windows user will have trouble building your project. Fix this forever with:',
                     '  git add --chmod=+x gradlew'
-                ].join('n'));
+                ].join('\n'));
                 core.info('Duct taping this for now');
                 fs.chmodSync('./gradlew', 755);
             }

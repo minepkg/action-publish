@@ -9,6 +9,7 @@ const isTrue = (s: string) => s && TRUE_STRINGS.includes(s);
 // note: debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
 async function run(): Promise<void> {
   const cliVersion: string = core.getInput('cli-version') || 'latest';
+  const apiKey: string = core.getInput('api-key', { required: true });
   const releaseVersion: string = core.getInput('release');
   const noBuild: string = core.getInput('no-build');
   const dry: string = core.getInput('dry');
@@ -16,6 +17,9 @@ async function run(): Promise<void> {
 
   // TODO: maybe check if it's already here
   await install({ version: cliVersion });
+
+  core.setSecret('MINEPKG_API_KEY');
+  core.exportVariable('MINEPKG_API_KEY', apiKey);
 
   if (workingDir) {
     process.chdir(workingDir);
@@ -30,7 +34,7 @@ async function run(): Promise<void> {
         [
           'Your gradlew is not executable. Non windows user will have trouble building your project. Fix this forever with:',
           '  git add --chmod=+x gradlew'
-        ].join('n')
+        ].join('\n')
       );
       core.info('Duct taping this for now');
       fs.chmodSync('./gradlew', 755);

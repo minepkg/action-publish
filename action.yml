@@ -2,6 +2,9 @@ name: 'Publish minepkg package'
 description: 'Publishes a package on minepkg.io'
 author: 'minepkg'
 inputs:
+  api-key:
+    description: 'API key to authenticate. Pass a secret! See: https://preview.minepkg.io/docs/ci'
+    required: true
   no-build:
     description: 'Skips the build step that the cli does by default'
     default: false
