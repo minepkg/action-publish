@@ -72,7 +72,7 @@ function run() {
                     '  git add --chmod=+x gradlew'
                 ].join('\n'));
                 core.info('Duct taping this for now');
-                fs.chmodSync('./gradlew', 755);
+                fs.chmodSync('./gradlew', 0o755);
             }
         }
         const args = ['publish', '--non-interactive'];
@@ -291,6 +291,7 @@ exports.getInput = getInput;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setOutput(name, value) {
+    process.stdout.write(os.EOL);
     command_1.issueCommand('set-output', { name }, value);
 }
 exports.setOutput = setOutput;
