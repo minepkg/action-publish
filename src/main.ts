@@ -37,7 +37,7 @@ async function run(): Promise<void> {
         ].join('\n')
       );
       core.info('Duct taping this for now');
-      fs.chmodSync('./gradlew', 755);
+      fs.chmodSync('./gradlew', 0o755);
     }
   }
 
