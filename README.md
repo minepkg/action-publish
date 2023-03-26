@@ -1,6 +1,10 @@
-## minepkg publish GitHub action
-
-This action publishes a package on minepkg.
+<div style="display: flex; margin: 10px 0 20px">
+  <img align="left" width="80" src="./assets/mpkg-publish-logo.webp" alt="minepkg" style="margin-right: 20px; align-self: center"/>
+  <div>
+    <h1 style="margin-top: 0; font-size: 28px; text-decoration: none">minepkg publish GitHub action</h1>
+    <p>This action publishes a package on minepkg.</p>
+  </div>
+</div>
 
 ## Usage
 
