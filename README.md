@@ -25,3 +25,4 @@ The documentation also includes more complete examples on how to use this action
   uses: minepkg/action-publish@main
   with:
     api-key: ${{secrets.MINEPKG_API_KEY}}
+```
